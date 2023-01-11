@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build:admin": "pnpm run --filter @lj/admin build",
-    "build:docs": "pnpm run build:lib && pnpm run build",
+    "build:components": "pnpm run --filter @lj/components build",
+    "build:docs": "pnpm run build:components && pnpm run --filter lj/docs build",
     "dev:admin": "pnpm run --filter @lj/admin dev",
     "dev:docs": "pnpm run --filter @lj/docs dev",
     "gen": "node ./script/genNewComp/index.js",
@@ -38,9 +39,6 @@
     "package.json": [
       "sort-package-json"
     ]
-  },
-  "eslintConfig": {
-    "extends": "@antfu"
   },
   "dependencies": {
     "vue": "^3.2.45"

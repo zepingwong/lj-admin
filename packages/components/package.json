@@ -4,13 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit && vite build --config ../../build/lib.config.ts",
     "dev": "vite",
     "preview": "vite preview"
   },
   "dependencies": {
-    "ant-design-vue": "^3.2.15",
-    "components": "link:@/components"
+    "ant-design-vue": "^3.2.15"
   },
   "devDependencies": {}
 }
