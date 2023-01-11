@@ -20,10 +20,10 @@
     ],
     "paths": {
       "@*": ["src/*"],
-      "@kjgl77/datav-vue3/*": ["packages/datav-vue3/*"],
-      "@kjgl77/docs/*": ["packages/docs/*"]
+      "@lj/components/*": ["packages/components/*"],
+      "@lj/docs/*": ["packages/docs/*"]
     },
     "outDir": "./"
   },
-  "exclude": ["packages/datav-vue3/dist", "packages/docs/docs", "node_modules", "script"]
+  "exclude": ["packages/components/dist", "packages/docs/docs", "node_modules", "script"]
 }

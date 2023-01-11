@@ -1,15 +1,13 @@
 import DefaultTheme from 'vitepress/theme'
-import './style/code.css'
-import './style/overrides.css'
-import 'uno.css'
+import './style'
 import { Theme } from 'vitepress'
-// import DataVVue3Plugin from '@kjgl77/datav-vue3'
-import DataVVue3Plugin from '../../../../datav-vue3/index'
+
+import VVue3Plugin from '../../../../components/index'
 
 const theme: Theme = {
   ...DefaultTheme,
   enhanceApp({ app }) {
-    app.use(DataVVue3Plugin)
+    app.use(VVue3Plugin)
   }
 }
 

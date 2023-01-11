@@ -1,0 +1,14 @@
+[
+  {
+    "compType": "Table",
+    "children": [
+      {
+        "compType": "Table",
+        "compName": "BasicTable",
+        "compZhName": "基础表格",
+        "compDesc": "基础表格",
+        "compClassName": "basictable"
+      }
+    ]
+  }
+]
