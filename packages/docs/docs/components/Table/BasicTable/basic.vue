@@ -9,7 +9,8 @@ import { ref } from 'vue'
 
 const columns = [
   {
-    title: '姓名'
+    title: '姓名',
+    dataIndex: 'name'
   },
   {
     title: '性别'

@@ -8,6 +8,13 @@
         "compZhName": "基础表格",
         "compDesc": "基础表格",
         "compClassName": "basictable"
+      },
+      {
+        "compType": "Table",
+        "compName": "UseTable",
+        "compZhName": "表格功能",
+        "compDesc": "表格功能",
+        "compClassName": "usetable"
       }
     ]
   }

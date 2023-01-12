@@ -106,7 +106,6 @@ export interface InnerHandlers {
 export interface TableActionType {
   scrollTo: (pos: string) => void // pos: id | "top" | "bottom"
   getPaginationRef: () => PaginationProps | boolean
-
   setProps: (props: Partial<BasicTableProps>) => void
   setShowPagination: (show: boolean) => Promise<void>
   getShowPagination: () => boolean

@@ -48,7 +48,7 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
       pageSize: PAGE_SIZE,
       size: 'small',
       defaultPageSize: PAGE_SIZE,
-      showTotal: (total) => '总计' + total,
+      showTotal: (total) => `共 ${total} 条数据`,
       showSizeChanger: true,
       pageSizeOptions: PAGE_SIZE_OPTIONS,
       itemRender: itemRender,

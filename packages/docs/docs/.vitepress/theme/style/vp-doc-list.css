@@ -23,6 +23,10 @@
 }
 
 .vp-doc li + li {
+    margin-top: revert;
+}
+
+.vp-doc > div > ul li + li {
     margin-top: 8px;
 }
 

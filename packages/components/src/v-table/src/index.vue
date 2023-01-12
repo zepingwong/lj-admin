@@ -38,7 +38,15 @@ const props = defineProps({
     type: [Array] as PropType<BasicColumn[]>,
     default: () => []
   },
-  showTableSetting: Boolean
+  showTableSetting: Boolean,
+  dataSource: {
+    type: Array as PropType<Recordable[]>,
+    default: null
+  },
+  bordered: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const emit = defineEmits([
@@ -79,8 +87,10 @@ const handlers: InnerHandlers = {
 }
 const { getHeaderProps } = useTableHeader(getProps, slots, handlers)
 const getBindData = computed(() => {
+  const dataSource = unref(getDataSourceRef)
   let propsData: Recordable = {
     loading: unref(getLoading),
+    dataSource: dataSource,
     pagination: toRaw(unref(getPaginationInfo)),
     ...unref(getProps),
     ...unref(getHeaderProps)

@@ -9,7 +9,7 @@ const getTplFilePath = (meta) => ({
     to: `../../packages/docs/docs/${meta.compType}/${meta.compName}/index.md`
   },
   demo: {
-    from: './.template/docs/demo.vue.tpl',
+    from: './.template/docs/basic.vue.tpl',
     to: `../../packages/docs/docs/${meta.compType}/${meta.compName}/demo.vue`
   },
   // src 目录
