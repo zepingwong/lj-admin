@@ -1,8 +1,9 @@
 import { computed, h, unref } from 'vue'
 import type { ComputedRef, Slots } from 'vue'
-import type { BasicTableProps, InnerHandlers, Recordable } from '@lj/components/types/v-table'
+import type { BasicTableProps, InnerHandlers } from '@lj/components/../../../../../types/v-table'
 import TableHeader from '../components/TableHeader/index.vue'
 import { isString, getSlot } from '@lj/utils'
+import { Recordable } from '@lj/components/../../../../../types/shims'
 
 export function useTableHeader(propsRef: ComputedRef<BasicTableProps>, slots: Slots, handlers: InnerHandlers) {
   const getHeaderProps = computed((): Recordable => {

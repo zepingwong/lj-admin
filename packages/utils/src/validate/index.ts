@@ -16,3 +16,7 @@ export function is(val: unknown, type: string) {
 export function isString(val: unknown): val is string {
   return is(val, 'String')
 }
+
+export function isBoolean(val: unknown): val is boolean {
+  return is(val, 'Boolean')
+}

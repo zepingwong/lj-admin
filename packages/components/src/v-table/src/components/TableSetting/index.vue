@@ -8,15 +8,15 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed } from 'vue'
-import type { TableSetting } from '@lj/components/types/v-table'
+import type { TableSetting } from '@lj/components/../../../../../../types/v-table'
 import RedoSetting from './RedoSetting.vue'
 import SizeSetting from './SizeSetting.vue'
 
 const props = defineProps({
   setting: {
     type: Object as PropType<TableSetting>,
-    default: () => ({}),
-  },
+    default: () => ({})
+  }
 })
 
 const getSetting = computed((): TableSetting => {
@@ -25,7 +25,7 @@ const getSetting = computed((): TableSetting => {
     size: true,
     setting: true,
     fullScreen: false,
-    ...props.setting,
+    ...props.setting
   }
 })
 </script>

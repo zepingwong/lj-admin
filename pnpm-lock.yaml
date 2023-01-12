@@ -71,9 +71,15 @@ importers:
 
   packages/components:
     specifiers:
+      '@lj/hooks': workspace:*
+      '@lj/settings': workspace:*
+      '@lj/types': workspace:*
       '@lj/utils': workspace:*
       ant-design-vue: ^3.2.15
     dependencies:
+      '@lj/hooks': link:../hooks
+      '@lj/settings': link:../settings
+      '@lj/types': link:../types
       '@lj/utils': link:../utils
       ant-design-vue: 3.2.15
 
@@ -87,6 +93,26 @@ importers:
     devDependencies:
       unocss: 0.48.3
       vitepress: 1.0.0-alpha.35
+
+  packages/hooks:
+    specifiers:
+      '@lj/utils': workspace:*
+    dependencies:
+      '@lj/utils': link:../utils
+
+  packages/settings:
+    specifiers:
+      '@lj/types': workspace:*
+    dependencies:
+      '@lj/types': link:../types
+
+  packages/types:
+    specifiers:
+      ant-design-vue: ^3.2.15
+      vue: 3.2.45
+    dependencies:
+      ant-design-vue: 3.2.15_vue@3.2.45
+      vue: 3.2.45
 
   packages/utils:
     specifiers: {}
@@ -228,6 +254,16 @@ packages:
     dependencies:
       '@ant-design/colors': 6.0.0
       '@ant-design/icons-svg': 4.2.1
+    dev: false
+
+  /@ant-design/icons-vue/6.1.0_vue@3.2.45:
+    resolution: {integrity: sha512-EX6bYm56V+ZrKN7+3MT/ubDkvJ5rK/O2t380WFRflDcVFgsvl3NLH7Wxeau6R8DbrO5jWR6DSTC3B6gYFp77AA==}
+    peerDependencies:
+      vue: '>=3.0.3'
+    dependencies:
+      '@ant-design/colors': 6.0.0
+      '@ant-design/icons-svg': 4.2.1
+      vue: 3.2.45
     dev: false
 
   /@antfu/install-pkg/0.1.1:
@@ -2073,6 +2109,32 @@ packages:
       scroll-into-view-if-needed: 2.2.31
       shallow-equal: 1.2.1
       vue-types: 3.0.2
+      warning: 4.0.3
+    dev: false
+
+  /ant-design-vue/3.2.15_vue@3.2.45:
+    resolution: {integrity: sha512-sJfE7LWimSdAPe4dzNyQBrmVMnOTNQTkG9oOyr+7W8qIYrX8sYWyC68Nn1uum4KBJUSZUa/BU6dohvTG0urBhA==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      vue: '>=3.2.0'
+    dependencies:
+      '@ant-design/colors': 6.0.0
+      '@ant-design/icons-vue': 6.1.0_vue@3.2.45
+      '@babel/runtime': 7.17.9
+      '@ctrl/tinycolor': 3.5.0
+      '@simonwep/pickr': 1.8.2
+      array-tree-filter: 2.1.0
+      async-validator: 4.2.5
+      dayjs: 1.11.7
+      dom-align: 1.12.4
+      dom-scroll-into-view: 2.0.1
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      resize-observer-polyfill: 1.5.1
+      scroll-into-view-if-needed: 2.2.31
+      shallow-equal: 1.2.1
+      vue: 3.2.45
+      vue-types: 3.0.2_vue@3.2.45
       warning: 4.0.3
     dev: false
 
@@ -5565,6 +5627,16 @@ packages:
       vue: ^3.0.0
     dependencies:
       is-plain-object: 3.0.1
+    dev: false
+
+  /vue-types/3.0.2_vue@3.2.45:
+    resolution: {integrity: sha512-IwUC0Aq2zwaXqy74h4WCvFCUtoV0iSWr0snWnE9TnU18S66GAQyqQbRf2qfJtUuiFsBf6qp0MEwdonlwznlcrw==}
+    engines: {node: '>=10.15.0'}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      is-plain-object: 3.0.1
+      vue: 3.2.45
     dev: false
 
   /vue/3.2.45:

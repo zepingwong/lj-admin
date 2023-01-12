@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lj/hooks": "workspace:*",
+    "@lj/settings": "workspace:*",
+    "@lj/types": "workspace:*",
     "@lj/utils": "workspace:*",
     "ant-design-vue": "^3.2.15"
   },

@@ -9,7 +9,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     lib: {
-      entry: resolve(__dirname, '../packages/datav-vue3/index.ts'),
+      entry: resolve(__dirname, '../packages/datav-vue3/shims.d.ts'),
       name: '@lj/components',
       fileName: (format) => `datav-vue3.${format}.js`
     },

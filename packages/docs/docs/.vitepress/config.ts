@@ -3,7 +3,8 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import path from 'path'
-import sidebar from "./configs/sidebar"
+import sidebar from './configs/sidebar'
+import nav from './configs/nav'
 
 // const BorderDecorationList = list.filter(item => item.children && item.children.length > 0)
 // const OtherList = list.filter(item => !item.children || item.children.length === 0)
@@ -45,10 +46,10 @@ import sidebar from "./configs/sidebar"
 
 export default defineConfig({
   title: 'DataV - Vue3',
-  markdown:{
+  markdown: {
     theme: {
       light: 'vitesse-light',
-      dark: 'vitesse-dark',
+      dark: 'vitesse-dark'
     }
   },
   themeConfig: {
@@ -57,43 +58,38 @@ export default defineConfig({
     socialLinks: [
       {
         icon: 'github',
-        link: 'https://github.com/vaemusic/datav-vue3',
-      },
+        link: 'https://github.com/vaemusic/datav-vue3'
+      }
     ],
-    nav: [
-      { text: '指引', link: '/Guide/index' },
-      { text: 'Demo', link: '/Demo/index' },
-    ],
+    nav: nav,
     sidebar: sidebar
   },
   vite: {
     resolve: {
       alias: {
-        'packages': `${path.resolve(__dirname, '../../../')}/`,
-      },
+        packages: `${path.resolve(__dirname, '../../../')}/`
+      }
     },
     plugins: [
       Unocss(),
       VueJsx(),
       AutoImport({
-        imports: [
-          'vue',
-        ],
-        dts: true,
-      }),
+        imports: ['vue'],
+        dts: true
+      })
     ],
-    server:{
-      fs:{
-        allow: ['..'],
+    server: {
+      fs: {
+        allow: ['..']
       }
     },
     esbuild: {
       jsxFactory: 'h',
       jsxFragment: 'Fragment',
-      jsxInject: 'import { h } from "vue"',
+      jsxInject: 'import { h } from "vue"'
     }
   },
   vue: {
-    reactivityTransform: path.resolve(__dirname, 'src'),
+    reactivityTransform: path.resolve(__dirname, 'src')
   }
 })

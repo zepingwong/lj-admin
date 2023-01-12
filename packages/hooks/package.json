@@ -1,0 +1,7 @@
+{
+  "name": "@lj/hooks",
+  "version": "0.0.0",
+  "dependencies": {
+    "@lj/utils": "workspace:*"
+  }
+}

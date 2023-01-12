@@ -1,30 +1,5 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "module": "ESNext",
-    "target": "es2016",
-    "lib": ["DOM", "ESNext"],
-    "strict": true,
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowJs": true,
-    "types": [
-      "vite/client",
-      "node"
-    ],
-    "paths": {
-      "@*": ["src/*"],
-      "@lj/components/*": ["packages/components/*"],
-      "@lj/docs/*": ["packages/docs/*"],
-      "@lj/utils": ["packages/utils/*"]
-    },
-    "outDir": "./"
-  },
-  "exclude": ["packages/components/dist", "packages/docs/docs", "node_modules", "script"]
+  "include": [
+      "packages/types/src/global.d.ts"
+  ]
 }

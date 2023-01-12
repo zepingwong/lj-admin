@@ -2,26 +2,26 @@ const { resolve } = require('path')
 const fs = require('fs-extra')
 const handlebars = require('handlebars')
 
-const getTplFilePath = meta => ({
+const getTplFilePath = (meta) => ({
   // docs 目录
   readme: {
     from: './.template/docs/index.md.tpl',
-    to: `../../packages/docs/docs/${meta.compType}/${meta.compName}/index.md`,
+    to: `../../packages/docs/docs/${meta.compType}/${meta.compName}/index.md`
   },
   demo: {
     from: './.template/docs/demo.vue.tpl',
-    to: `../../packages/docs/docs/${meta.compType}/${meta.compName}/demo.vue`,
+    to: `../../packages/docs/docs/${meta.compType}/${meta.compName}/demo.vue`
   },
   // src 目录
   vue: {
     from: './.template/src/index.vue.tpl',
-    to: `../../packages/datav-vue3/components/${meta.compName}/src/index.vue`,
+    to: `../../packages/datav-vue3/components/${meta.compName}/src/index.vue`
   },
   // 根目录
   install: {
-    from: './.template/index.ts.tpl',
-    to: `../../packages/datav-vue3/components/${meta.compName}/index.ts`,
-  },
+    from: './.template/shims.d.ts.tpl',
+    to: `../../packages/datav-vue3/components/${meta.compName}/index.ts`
+  }
 })
 
 const compFilesTplReplacer = (meta) => {
@@ -30,8 +30,7 @@ const compFilesTplReplacer = (meta) => {
     const fileTpl = fs.readFileSync(resolve(__dirname, filePaths[key].from), 'utf-8')
     const fileContent = handlebars.compile(fileTpl)(meta)
     fs.outputFile(resolve(__dirname, filePaths[key].to), fileContent, (err) => {
-      if (err)
-        console.log(err)
+      if (err) console.log(err)
     })
   })
 }
@@ -43,18 +42,15 @@ const listJsonTplReplacer = (meta) => {
   const listFileContent = JSON.parse(listFileTpl)
   if (meta.compType !== 'Other') {
     listFileContent.forEach((item) => {
-      if (item.compType === meta.compType)
-        item.children.push(meta)
+      if (item.compType === meta.compType) item.children.push(meta)
     })
-  }
-  else {
+  } else {
     listFileContent.unshift(meta)
   }
 
   const newListFileContentFile = JSON.stringify(listFileContent, null, 2)
   fs.writeFile(resolve(__dirname, listFilePath), newListFileContentFile, (err) => {
-    if (err)
-      console.log(err)
+    if (err) console.log(err)
   })
   return listFileContent
 }
@@ -94,34 +90,34 @@ const listJsonTplReplacer = (meta) => {
 // 更新 install.ts
 const installTsTplReplacer = (listFileContent) => {
   const installFileFrom = './.template/install.ts.tpl'
-  const installFileTo = '../../packages/datav-vue3/index.ts' // 这里没有写错，别慌
+  const installFileTo = '../../packages/datav-vue3/shims.d.ts' // 这里没有写错，别慌
   const installFileTpl = fs.readFileSync(resolve(__dirname, installFileFrom), 'utf-8')
   const installMeta = {
-    importPlugins: listFileContent.map((item) => {
-      if (item.compType === 'Other')
-        return `import { ${item.compName}Plugin } from './components/${item.compName}'`
-      else
-        return item.children.map(child => `import { ${child.compName}Plugin } from './components/${child.compName}'`).join('\n')
-    }).join('\n'),
-    installPlugins: listFileContent.map((item) => {
-      if (item.compType === 'Other')
-        return `    ${item.compName}Plugin.install?.(app)`
-
-      else
-        return item.children.map(child => `    ${child.compName}Plugin.install?.(app)`).join('\n')
-    }).join('\n'),
-    exportPlugins: listFileContent.map((item) => {
-      if (item.compType === 'Other')
-        return `export * from './components/${item.compName}'`
-
-      else
-        return item.children.map(child => `export * from './components/${child.compName}'`).join('\n')
-    }).join('\n'),
+    importPlugins: listFileContent
+      .map((item) => {
+        if (item.compType === 'Other') return `import { ${item.compName}Plugin } from './components/${item.compName}'`
+        else
+          return item.children
+            .map((child) => `import { ${child.compName}Plugin } from './components/${child.compName}'`)
+            .join('\n')
+      })
+      .join('\n'),
+    installPlugins: listFileContent
+      .map((item) => {
+        if (item.compType === 'Other') return `    ${item.compName}Plugin.install?.(app)`
+        else return item.children.map((child) => `    ${child.compName}Plugin.install?.(app)`).join('\n')
+      })
+      .join('\n'),
+    exportPlugins: listFileContent
+      .map((item) => {
+        if (item.compType === 'Other') return `export * from './components/${item.compName}'`
+        else return item.children.map((child) => `export * from './components/${child.compName}'`).join('\n')
+      })
+      .join('\n')
   }
   const installFileContent = handlebars.compile(installFileTpl, { noEscape: true })(installMeta)
   fs.outputFile(resolve(__dirname, installFileTo), installFileContent, (err) => {
-    if (err)
-      console.log(err)
+    if (err) console.log(err)
   })
 }
 

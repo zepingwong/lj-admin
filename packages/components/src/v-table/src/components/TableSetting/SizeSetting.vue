@@ -28,7 +28,7 @@
 import { ref } from 'vue'
 import { ColumnHeightOutlined } from '@ant-design/icons-vue'
 import { Dropdown, Menu, MenuItem, Tooltip } from 'ant-design-vue'
-import type { SizeType } from '@lj/components/types/v-table'
+import type { SizeType } from '@lj/components/../../../../../../types/v-table'
 import { useTableContext } from '../../hooks/useTableContext'
 import { getPopupContainer } from '@lj/utils'
 

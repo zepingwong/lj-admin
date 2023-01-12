@@ -1,0 +1,8 @@
+{
+  "name": "@lj/settings",
+  "version": "0.0.0",
+  "dependencies": {
+    "@lj/types": "workspace:*"
+  },
+  "devDependencies": {}
+}

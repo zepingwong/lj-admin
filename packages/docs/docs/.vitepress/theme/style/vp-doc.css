@@ -110,32 +110,6 @@
     font-weight: 600;
 }
 
-/**
- * Lists
- * -------------------------------------------------------------------------- */
-
-.vp-doc ul,
-.vp-doc ol {
-    padding-left: 1.25rem;
-    margin: 16px 0;
-}
-
-.vp-doc ul {
-    list-style: disc;
-}
-
-.vp-doc ol {
-    list-style: decimal;
-}
-
-.vp-doc li + li {
-    margin-top: 8px;
-}
-
-.vp-doc li > ol,
-.vp-doc li > ul {
-    margin: 8px 0 0;
-}
 
 
 /**

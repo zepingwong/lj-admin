@@ -13,3 +13,13 @@ import demo from './demo.vue'
 <ClientOnly>
   <demo />
 </ClientOnly>
+
+
+## ***props***
+
+|参数|说明|类型|默认值|版本|
+|-|-|-|-|-|
+|showTableSetting|是否显示表格操作按钮|boolean|false||
+
+## ***events***
+
