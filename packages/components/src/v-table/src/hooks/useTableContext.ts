@@ -1,11 +1,6 @@
 import { inject, provide } from 'vue'
 import type { ComputedRef, Ref } from 'vue'
-import type {
-  BasicTableProps,
-  Nullable,
-  Recordable,
-  TableActionType,
-} from '@lj/components/types/v-table'
+import type { BasicTableProps, Nullable, Recordable, TableActionType } from '@lj/components/types/v-table'
 
 const key = Symbol('v-table')
 

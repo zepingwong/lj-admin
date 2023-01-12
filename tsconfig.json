@@ -21,7 +21,8 @@
     "paths": {
       "@*": ["src/*"],
       "@lj/components/*": ["packages/components/*"],
-      "@lj/docs/*": ["packages/docs/*"]
+      "@lj/docs/*": ["packages/docs/*"],
+      "@lj/utils": ["packages/utils/*"]
     },
     "outDir": "./"
   },

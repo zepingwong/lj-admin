@@ -71,11 +71,11 @@ importers:
 
   packages/components:
     specifiers:
+      '@lj/utils': workspace:*
       ant-design-vue: ^3.2.15
-      components: link:@/components
     dependencies:
+      '@lj/utils': link:../utils
       ant-design-vue: 3.2.15
-      components: link:@/components
 
   packages/docs:
     specifiers:
@@ -87,6 +87,9 @@ importers:
     devDependencies:
       unocss: 0.48.3
       vitepress: 1.0.0-alpha.35
+
+  packages/utils:
+    specifiers: {}
 
 packages:
 
