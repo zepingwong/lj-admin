@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig/base.json",
   "compilerOptions": {
+    "module": "ESNext",
     "outDir": "./",
-    "types": ["node"]
+    "types": ["node", "vite/client"]
   },
   "exclude": ["node_modules", "dist"]
 }

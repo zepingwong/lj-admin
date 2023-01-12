@@ -5,11 +5,15 @@
  */
 import type { App, Plugin } from 'vue'
 import { VTablePlugin } from './src/v-table'
+import { VButtonPlugin } from './src/v-button'
+import { VModalPlugin } from './src/v-modal'
 
 const VVue3Plugin: Plugin = {
   install(app: App) {
     VTablePlugin.install?.(app)
-  },
+    VButtonPlugin.install?.(app)
+    VModalPlugin.install?.(app)
+  }
 }
 
 export default VVue3Plugin

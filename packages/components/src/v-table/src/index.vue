@@ -102,7 +102,7 @@ const { getPaginationInfo, getPagination, setPagination, setShowPagination, getS
   usePagination(getProps)
 const { getLoading, setLoading } = useLoading(getProps)
 const { clearSelectedRowKeys } = useRowSelection(getProps, tableData, emit)
-const { getDataSourceRef } = useDataSource(
+const { getDataSourceRef, reload } = useDataSource(
   getProps,
   {
     tableData,
@@ -118,6 +118,7 @@ const { scrollTo } = useTableScrollTo(tableElRef, getDataSourceRef)
 const tableAction: TableActionType = {
   scrollTo,
   setProps,
+  reload,
   getShowPagination,
   getPaginationRef: getPagination,
   setShowPagination,

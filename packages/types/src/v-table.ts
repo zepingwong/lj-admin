@@ -5,6 +5,8 @@ import type { TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib
 
 export interface BasicColumn extends ColumnProps<Recordable> {
   children?: BasicColumn[]
+  // Whether to hide the column by default, it can be displayed in the column configuration
+  defaultHidden?: boolean
 }
 
 export type SizeType = 'default' | 'middle' | 'small' | 'large'
@@ -45,6 +47,8 @@ export interface BasicTableProps<T = any> {
   rowKey?: string | ((record: Recordable) => string)
   // 默认的排序参数
   defSort?: Recordable
+  // 表格滚动最大高度
+  maxHeight?: number
   // 请求接口配置
   fetchSetting?: Partial<FetchSetting>
   /**
@@ -79,6 +83,21 @@ export interface BasicTableProps<T = any> {
   // 标题右侧提示
   titleHelpMessage?: string | string[]
   tableSetting?: TableSetting
+  // 文本超过宽度是否显示。。。
+  ellipsis?: boolean
+  // 是否继承父级高度（父级高度-表单高度-padding高度）
+  isCanResizeParent?: boolean
+  // 是否可以自适应高度
+  canResize?: boolean
+  // 自适应高度偏移， 计算结果-偏移量
+  resizeHeightOffset?: number
+  /**
+   * Set horizontal or vertical scrolling, can also be used to specify the width and height of the scroll area.
+   * It is recommended to set a number for x, if you want to set it to true,
+   * you need to add style .ant-table td { white-space: nowrap; }.
+   * @type object
+   */
+  scroll?: { x?: number | true; y?: number }
   /**
    * Table title renderer
    * @type Function | ScopedSlot
@@ -104,6 +123,7 @@ export interface InnerHandlers {
 }
 
 export interface TableActionType {
+  reload: (opt?: FetchParams) => Promise<void>
   scrollTo: (pos: string) => void // pos: id | "top" | "bottom"
   getPaginationRef: () => PaginationProps | boolean
   setProps: (props: Partial<BasicTableProps>) => void

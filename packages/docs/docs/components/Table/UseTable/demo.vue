@@ -1,6 +1,7 @@
 <template>
   <div class="p3 justify-center items-center">
-    <v-table :columns="columns" show-table-setting :data-source="dataSource" bordered></v-table>
+    <v-button @click="handleLoading">打开loading</v-button>
+    <v-table :columns="columns" show-table-setting :data-source="dataSource"></v-table>
   </div>
 </template>
 
@@ -28,4 +29,8 @@ const dataSource = ref([
     gender: '男'
   }
 ])
+
+const handleLoading = () => {
+  alert('test')
+}
 </script>
