@@ -2,15 +2,17 @@
   <div class="table-setting">
     <RedoSetting v-if="getSetting.redo" />
     <SizeSetting v-if="getSetting.size" />
+    <column-setting v-if="getSetting.setting" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed } from 'vue'
-import type { TableSetting } from '@lj/components/../../../../../../types/v-table'
+import type { TableSetting } from '@lj/types'
 import RedoSetting from './RedoSetting.vue'
 import SizeSetting from './SizeSetting.vue'
+import ColumnSetting from './ColumnSetting.vue'
 
 const props = defineProps({
   setting: {
