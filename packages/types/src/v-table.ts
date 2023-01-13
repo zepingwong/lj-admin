@@ -2,6 +2,7 @@ import type { ColumnProps } from 'ant-design-vue/es/table'
 import type { VNodeChild } from 'vue'
 import { PaginationProps } from './v-pagination'
 import type { TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib/table/interface'
+import { EmitType } from './common'
 
 export interface BasicColumn extends ColumnProps<Recordable> {
   children?: BasicColumn[]
@@ -121,15 +122,45 @@ export interface ColumnChangeParam {
 export interface InnerHandlers {
   onColumnsChange: (data: ColumnChangeParam[]) => void
 }
-
+export interface GetColumnsParams {
+  ignoreIndex?: boolean
+  ignoreAction?: boolean
+  sort?: boolean
+}
 export interface TableActionType {
   reload: (opt?: FetchParams) => Promise<void>
+  setSelectedRows: (rows: Recordable[]) => void
+  getSelectRows: <T = Recordable>() => T[]
+  clearSelectedRowKeys: () => void
+  expandAll: () => void
+  expandRows: (keys: string[] | number[]) => void
+  collapseAll: () => void
   scrollTo: (pos: string) => void // pos: id | "top" | "bottom"
-  getPaginationRef: () => PaginationProps | boolean
+  getSelectRowKeys: () => string[]
+  deleteSelectRowByKey: (key: string) => void
+  setPagination: (info: Partial<PaginationProps>) => void
+  setTableData: <T = Recordable>(values: T[]) => void
+  updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void
+  deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => void
+  insertTableDataRecord: (record: Recordable, index?: number) => Recordable | void
+  findTableDataRecord: (rowKey: string | number) => Recordable | void
+  getColumns: (opt?: GetColumnsParams) => BasicColumn[]
+  setColumns: (columns: BasicColumn[] | string[]) => void
+  getDataSource: <T = Recordable>() => T[]
+  getRawDataSource: <T = Recordable>() => T
+  setLoading: (loading: boolean) => void
   setProps: (props: Partial<BasicTableProps>) => void
+  redoHeight: () => void
+  setSelectedRowKeys: (rowKeys: string[] | number[]) => void
+  getPaginationRef: () => PaginationProps | boolean
+  getSize: () => SizeType
+  getRowSelection: () => TableRowSelection<Recordable>
+  getCacheColumns: () => BasicColumn[]
+  emit?: EmitType
+  updateTableData: (index: number, key: string, value: any) => Recordable
   setShowPagination: (show: boolean) => Promise<void>
   getShowPagination: () => boolean
-  getSize: () => SizeType
+  setCacheColumnsByField?: (dataIndex: string | undefined, value: BasicColumn) => void
 }
 
 export interface FetchParams {

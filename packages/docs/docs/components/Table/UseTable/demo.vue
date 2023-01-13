@@ -1,13 +1,15 @@
 <template>
   <div class="p3 justify-center items-center">
     <v-button @click="handleLoading">打开loading</v-button>
-    <v-table :columns="columns" show-table-setting :data-source="dataSource"></v-table>
+    <v-table :columns="columns" show-table-setting :data-source="dataSource" @register="registerTable"></v-table>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useTable } from '@lj/components/src/v-table/src/hooks/useTable'
 
+const [registerTable, { setLoading }] = useTable()
 const columns = [
   {
     title: '姓名',
@@ -31,6 +33,9 @@ const dataSource = ref([
 ])
 
 const handleLoading = () => {
-  alert('test')
+  setLoading(true)
+  setTimeout(() => {
+    setLoading(false)
+  }, 1000)
 }
 </script>

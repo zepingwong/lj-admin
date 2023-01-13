@@ -119,6 +119,7 @@ const tableAction: TableActionType = {
   scrollTo,
   setProps,
   reload,
+  setLoading,
   getShowPagination,
   getPaginationRef: getPagination,
   setShowPagination,
@@ -126,8 +127,11 @@ const tableAction: TableActionType = {
     return unref(getBindData).size as SizeType
   }
 }
+
+defineExpose(tableAction)
+// TODO const [registerForm, formActions] = useForm();
+emit('register', tableAction)
 createTableContext({ ...tableAction, wrapRef, getBindData })
-defineExpose()
 </script>
 
 <style scoped></style>
