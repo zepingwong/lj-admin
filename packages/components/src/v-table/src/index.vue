@@ -46,7 +46,8 @@ const props = defineProps({
   bordered: {
     type: Boolean,
     default: false
-  }
+  },
+  showIndexColumn: { type: Boolean, default: true }
 })
 
 const emit = defineEmits([

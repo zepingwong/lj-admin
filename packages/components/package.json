@@ -13,7 +13,10 @@
     "@lj/settings": "workspace:*",
     "@lj/types": "workspace:*",
     "@lj/utils": "workspace:*",
-    "ant-design-vue": "^3.2.15"
+    "ant-design-vue": "^3.2.15",
+    "sortablejs": "^1.15.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/sortablejs": "^1.15.0"
+  }
 }

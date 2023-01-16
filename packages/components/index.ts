@@ -7,12 +7,14 @@ import type { App, Plugin } from 'vue'
 import { VTablePlugin } from './src/v-table'
 import { VButtonPlugin } from './src/v-button'
 import { VModalPlugin } from './src/v-modal'
+import { VScrollbarPlugin } from './src/v-scrollbar'
 
 const VVue3Plugin: Plugin = {
   install(app: App) {
     VTablePlugin.install?.(app)
     VButtonPlugin.install?.(app)
     VModalPlugin.install?.(app)
+    VScrollbarPlugin.install?.(app)
   }
 }
 
