@@ -1,14 +1,14 @@
 import type { ComputedRef } from 'vue'
 import { computed, Ref, ref, reactive, toRaw, unref, watch } from 'vue'
 import { renderEditCell } from '../components/editable'
-import { usePermission } from '@/hooks/web/usePermission'
 import { isArray, isBoolean, isFunction, isMap, isString } from '@lj/utils'
 import { cloneDeep, isEqual } from 'lodash-es'
 import { formatToDate } from '@lj/utils'
 import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from '../constant'
-import { BasicColumn, BasicTableProps, PaginationProps } from '@lj/types'
+import { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../../types'
+import { PaginationProps } from '@lj/types'
 
-function handleItem(item: BasicColumn, ellipsis: boolean) {
+const handleItem = (item: BasicColumn, ellipsis: boolean) => {
   const { key, dataIndex, children } = item
   item.align = item.align || DEFAULT_ALIGN
   if (ellipsis) {
@@ -22,11 +22,11 @@ function handleItem(item: BasicColumn, ellipsis: boolean) {
     }
   }
   if (children && children.length) {
-    handleChildren(children, !!ellipsis)
+    handleChildren(children, ellipsis)
   }
 }
 
-function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) {
+const handleChildren = (children: BasicColumn[] | undefined, ellipsis: boolean) => {
   if (!children) return
   children.forEach((item) => {
     const { children } = item
@@ -35,13 +35,11 @@ function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) 
   })
 }
 
-function handleIndexColumn(
+const handleIndexColumn = (
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
   columns: BasicColumn[]
-) {
-  const { t } = useI18n()
-
+) => {
   const { showIndexColumn, indexColumnProps, isTreeTable } = unref(propsRef)
 
   let pushIndexColumns = false
@@ -64,7 +62,7 @@ function handleIndexColumn(
   columns.unshift({
     flag: INDEX_COLUMN_FLAG,
     width: 50,
-    title: t('component.table.index'),
+    title: '序号',
     align: 'center',
     customRender: ({ index }) => {
       const getPagination = unref(getPaginationRef)
@@ -83,7 +81,7 @@ function handleIndexColumn(
   })
 }
 
-function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: BasicColumn[]) {
+const handleActionColumn = (propsRef: ComputedRef<BasicTableProps>, columns: BasicColumn[]) => {
   const { actionColumn } = unref(propsRef)
   if (!actionColumn) return
 
@@ -98,10 +96,10 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
   }
 }
 
-export function useColumns(
+export const useColumns = (
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>
-) {
+) => {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>
   let cacheColumns = unref(propsRef).columns
 
@@ -136,37 +134,32 @@ export function useColumns(
     }
     return isIfShow
   }
-  const { hasPermission } = usePermission()
 
   const getViewColumns = computed(() => {
     const viewColumns = sortFixedColumn(unref(getColumnsRef))
 
     const columns = cloneDeep(viewColumns)
-    return columns
-      .filter((column) => {
-        return hasPermission(column.auth) && isIfShow(column)
-      })
-      .map((column) => {
-        const { slots, customRender, format, edit, editRow, flag } = column
+    return columns.map((column) => {
+      const { slots, customRender, format, edit, editRow, flag } = column
 
-        if (!slots || !slots?.title) {
-          // column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
-          column.customTitle = column.title
-          Reflect.deleteProperty(column, 'title')
+      if (!slots || !slots?.title) {
+        // column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
+        column.customTitle = column.title
+        Reflect.deleteProperty(column, 'title')
+      }
+      const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!)
+      if (!customRender && format && !edit && !isDefaultAction) {
+        column.customRender = ({ text, record, index }) => {
+          return formatCell(text, format, record, index)
         }
-        const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!)
-        if (!customRender && format && !edit && !isDefaultAction) {
-          column.customRender = ({ text, record, index }) => {
-            return formatCell(text, format, record, index)
-          }
-        }
+      }
 
-        // edit table
-        if ((edit || editRow) && !isDefaultAction) {
-          column.customRender = renderEditCell(column)
-        }
-        return reactive(column)
-      })
+      // edit table
+      if ((edit || editRow) && !isDefaultAction) {
+        column.customRender = renderEditCell(column)
+      }
+      return reactive(column)
+    })
   })
 
   watch(
@@ -188,6 +181,7 @@ export function useColumns(
       }
     })
   }
+
   /**
    * set columns
    * @param columnList key｜column
@@ -245,6 +239,7 @@ export function useColumns(
 
     return columns
   }
+
   function getCacheColumns() {
     return cacheColumns
   }

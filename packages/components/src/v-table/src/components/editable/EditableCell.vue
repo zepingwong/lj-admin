@@ -4,18 +4,15 @@ import { computed, defineComponent, nextTick, ref, toRaw, unref, watchEffect } f
 import type { EditRecordRow } from './index'
 import { CheckOutlined, CloseOutlined, FormOutlined } from '@ant-design/icons-vue'
 import { CellComponent } from './CellComponent'
-
 import { useTableContext } from '../../hooks/useTableContext'
-
 import { ClickOutside } from '@lj/directives'
-
 import { propTypes } from '@lj/utils'
 import { isArray, isBoolean, isFunction, isNumber, isString } from '@lj/utils'
 import { createPlaceholderMessage } from './helper'
 import { pick, set } from 'lodash-es'
 import { treeToList } from '@lj/utils'
 import { Spin } from 'ant-design-vue'
-import { BasicColumn } from '../../../types/column'
+import { BasicColumn } from '../../../types'
 
 export default defineComponent({
   name: 'EditableCell',
@@ -431,7 +428,7 @@ export default defineComponent({
 })
 </script>
 <style lang="less">
-@prefix-cls: ~'@{namespace}-editable-cell';
+@prefix-cls: ~'editable-cell';
 
 .edit-cell-align-left {
   text-align: left;

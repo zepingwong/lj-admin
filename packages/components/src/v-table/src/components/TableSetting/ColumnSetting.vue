@@ -17,7 +17,7 @@
             <Checkbox v-model:checked="state.checkAll" :indeterminate="indeterminate" @change="onCheckAllChange">
               列展示
             </Checkbox>
-            <Checkbox v-model:checked="checkIndex" @change="handleIndexCheckChange"> 序号列 </Checkbox>
+            <Checkbox v-model:checked="checkIndex" @change="handleIndexCheckChange"> 序号列</Checkbox>
           </div>
         </template>
         <template #content>
@@ -35,7 +35,7 @@ import { computed, reactive, ref, unref, nextTick, useAttrs, watchEffect } from 
 import { Tooltip, Popover, Checkbox, Divider, CheckboxGroup } from 'ant-design-vue'
 import type { CheckboxChangeEvent } from 'ant-design-vue/lib/checkbox/interface'
 import { SettingOutlined, DragOutlined } from '@ant-design/icons-vue'
-import { BasicColumn, ColumnChangeParam, ComponentRef } from '@lj/types'
+import { ColumnChangeParam, ComponentRef } from '@lj/types'
 import { VScrollContainer } from '../../../../v-container'
 import { useTableContext } from '../../hooks/useTableContext'
 import Sortablejs from 'sortablejs'
@@ -44,6 +44,7 @@ import { cloneDeep } from 'lodash-es'
 import { isFunction, isNullAndUnDef, getPopupContainer as getParentContainer } from '@lj/utils'
 import 'ant-design-vue/es/popover/style/css'
 import 'ant-design-vue/es/checkbox/style/css'
+import { BasicColumn } from '../../../types'
 
 interface State {
   checkAll: boolean
@@ -57,6 +58,7 @@ interface Options {
   value: string
   fixed?: boolean | 'left' | 'right'
 }
+
 const checkIndex = ref(false)
 const emit = defineEmits(['columns-change'])
 const state = reactive<State>({
@@ -174,6 +176,7 @@ const getColumns = () => {
   })
   return ret
 }
+
 function init() {
   const columns = getColumns()
 

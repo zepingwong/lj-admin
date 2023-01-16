@@ -25,10 +25,19 @@ export interface TableSetting {
   setting?: boolean
   fullScreen?: boolean
 }
-
+export type CellFormat =
+  | string
+  | ((text: string, record: Recordable, index: number) => string | number)
+  | Map<string | number, any>
 export interface BasicTableProps<T = any> {
   // 列配置
   columns: BasicColumn[]
+  isTreeTable?: boolean
+  // 序号列配置
+  indexColumnProps?: BasicColumn
+  actionColumn?: BasicColumn
+  // 是否显示序号列
+  showIndexColumn?: boolean
   // 数据
   dataSource?: Recordable[]
   // 接口请求对象

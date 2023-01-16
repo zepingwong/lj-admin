@@ -17,14 +17,7 @@ import { omit } from 'lodash-es'
 import { Table } from 'ant-design-vue'
 import 'ant-design-vue/es/table/style/css'
 import type { PropType } from 'vue'
-import type {
-  BasicColumn,
-  BasicTableProps,
-  ColumnChangeParam,
-  InnerHandlers,
-  SizeType,
-  TableActionType
-} from '@lj/types'
+import type { BasicTableProps, ColumnChangeParam, InnerHandlers, SizeType, TableActionType } from '@lj/types'
 import { useTableHeader } from './hooks/useTableHeader'
 import { createTableContext } from './hooks/useTableContext'
 import { useTableScrollTo } from './hooks/useTableScrollTo'
@@ -32,6 +25,8 @@ import { useDataSource } from './hooks/useDataSource'
 import { usePagination } from './hooks/usePagination'
 import { useLoading } from './hooks/useLoading'
 import { useRowSelection } from './hooks/useRowSelection'
+import { useColumns } from './hooks/useColumns'
+import { BasicColumn } from '../types'
 
 const props = defineProps({
   columns: {
@@ -115,12 +110,18 @@ const { getDataSourceRef, reload } = useDataSource(
   },
   emit
 )
+const { getViewColumns, getColumns, setCacheColumnsByField, setColumns, getColumnsRef, getCacheColumns } = useColumns(
+  getProps,
+  getPaginationInfo
+)
 const { scrollTo } = useTableScrollTo(tableElRef, getDataSourceRef)
 const tableAction: TableActionType = {
   scrollTo,
   setProps,
   reload,
   setLoading,
+  getColumns,
+  setColumns,
   getShowPagination,
   getPaginationRef: getPagination,
   setShowPagination,
