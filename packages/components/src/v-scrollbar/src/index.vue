@@ -18,8 +18,8 @@
 </template>
 <script lang="ts">
 import { componentSetting } from '@lj/settings'
-
 const { scrollbar } = componentSetting
+export default {}
 </script>
 <script lang="ts" setup>
 import { addResizeListener, removeResizeListener } from '@lj/utils'

@@ -22,7 +22,7 @@
         </template>
         <template #content>
           <VScrollContainer>
-            <CheckboxGroup v-model:value="state.checkedList" @change="onChange" ref="columnListRef"></CheckboxGroup>
+            <CheckboxGroup ref="columnListRef" v-model:value="state.checkedList" @change="onChange"></CheckboxGroup>
           </VScrollContainer>
         </template>
       </Popover>
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref, unref, nextTick, useAttrs } from 'vue'
+import { computed, reactive, ref, unref, nextTick, useAttrs, watchEffect } from 'vue'
 import { Tooltip, Popover, Checkbox, Divider, CheckboxGroup } from 'ant-design-vue'
 import type { CheckboxChangeEvent } from 'ant-design-vue/lib/checkbox/interface'
 import { SettingOutlined, DragOutlined } from '@ant-design/icons-vue'
@@ -43,6 +43,7 @@ import type Sortable from 'sortablejs'
 import { cloneDeep } from 'lodash-es'
 import { isFunction, isNullAndUnDef, getPopupContainer as getParentContainer } from '@lj/utils'
 import 'ant-design-vue/es/popover/style/css'
+import 'ant-design-vue/es/checkbox/style/css'
 
 interface State {
   checkAll: boolean
@@ -99,6 +100,7 @@ const onCheckAllChange = (e: CheckboxChangeEvent) => {
 let inited = false
 let sortable: Sortable
 let sortableOrder: string[] = []
+const cachePlainOptions = ref<Options[]>([])
 // Open the pop-up window for drag and drop initialization
 const handleVisibleChange = () => {
   if (inited) return
@@ -161,6 +163,59 @@ const onChange = (checkedList: string[]) => {
   })
   setColumns(checkedList)
 }
+const getColumns = () => {
+  const ret: Options[] = []
+  table.getColumns({ ignoreIndex: true, ignoreAction: true }).forEach((item) => {
+    ret.push({
+      label: (item.title as string) || (item.customTitle as string),
+      value: (item.dataIndex || item.title) as string,
+      ...item
+    })
+  })
+  return ret
+}
+function init() {
+  const columns = getColumns()
+
+  const checkList = table
+    .getColumns({ ignoreAction: true, ignoreIndex: true })
+    .map((item) => {
+      if (item.defaultHidden) {
+        return ''
+      }
+      return item.dataIndex || item.title
+    })
+    .filter(Boolean) as string[]
+
+  if (!plainOptions.value.length) {
+    plainOptions.value = columns
+    plainSortOptions.value = columns
+    cachePlainOptions.value = columns
+    state.defaultCheckList = checkList
+  } else {
+    // const fixedColumns = columns.filter((item) =>
+    //   Reflect.has(item, 'fixed')
+    // ) as BasicColumn[];
+
+    unref(plainOptions).forEach((item: BasicColumn) => {
+      const findItem = columns.find((col: BasicColumn) => col.dataIndex === item.dataIndex)
+      if (findItem) {
+        item.fixed = findItem.fixed
+      }
+    })
+  }
+  state.isInit = true
+  state.checkedList = checkList
+}
+
+watchEffect(() => {
+  setTimeout(() => {
+    const columns = table.getColumns()
+    if (columns.length && !state.isInit) {
+      init()
+    }
+  }, 0)
+})
 </script>
 
 <style scoped lang="less">

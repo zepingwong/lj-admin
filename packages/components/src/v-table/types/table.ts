@@ -1,14 +1,9 @@
 import type { ColumnProps } from 'ant-design-vue/es/table'
 import type { VNodeChild } from 'vue'
-import { PaginationProps } from './v-pagination'
+import { PaginationProps } from '@lj/types/src/v-pagination'
 import type { TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib/table/interface'
-import { EmitType } from './common'
-
-export interface BasicColumn extends ColumnProps<Recordable> {
-  children?: BasicColumn[]
-  // Whether to hide the column by default, it can be displayed in the column configuration
-  defaultHidden?: boolean
-}
+import { EmitType } from '@lj/types/src/common'
+import { BasicColumn } from './column'
 
 export type SizeType = 'default' | 'middle' | 'small' | 'large'
 export declare type SortOrder = 'ascend' | 'descend'
@@ -32,6 +27,8 @@ export interface TableSetting {
 }
 
 export interface BasicTableProps<T = any> {
+  // 列配置
+  columns: BasicColumn[]
   // 数据
   dataSource?: Recordable[]
   // 接口请求对象

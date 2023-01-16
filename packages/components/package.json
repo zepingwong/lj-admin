@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lj/directives": "workspace:*",
     "@lj/hooks": "workspace:*",
     "@lj/settings": "workspace:*",
     "@lj/types": "workspace:*",
